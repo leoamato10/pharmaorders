@@ -123,7 +123,8 @@ function App() {
           </div>
         )}
         <button onClick={addItem}>Add Order</button>
-        <div>{orders ? orders.map((order) => <p>{order.name}</p>) : null}</div>
+        {/* <div>{orders ? orders.map((order) => <p>{order.name}</p>) : null}</div> */}
+
         {orderStatus === "not order added yet" ? (
           <p>not order added yet</p>
         ) : (
