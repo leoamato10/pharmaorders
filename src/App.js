@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import firebase from "./database";
+import { firebase, db } from "./database";
 import "firebase/firestore";
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
 
   const addItem = async () => {
     try {
-      await firebase.db.collection("todos").add({
+      await db.collection("todos").add({
         bussisnessId: "4ntCBmHQwgHP4zB8x", //ID del negocio si aplica
         busisnessName: "TicTeams", //Nombre del negocio
         busisnesslogo: "logo", //URL del logo del negocio
