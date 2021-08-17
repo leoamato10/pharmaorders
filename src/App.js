@@ -4,7 +4,7 @@ import firebase from "./database";
 import "firebase/firestore";
 
 function App() {
-  const [orders, setOrders] = useState([]);
+  // const [orders, setOrders] = useState([]);
   const [orderStatus, setOrderStatus] = useState("not order added yet");
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
@@ -124,7 +124,7 @@ function App() {
         )}
         <button onClick={addItem}>Add Order</button>
         <div>{orders ? orders.map((order) => <p>{order.name}</p>) : null}</div>
-        {orderStatus == "not order added yet" ? (
+        {orderStatus === "not order added yet" ? (
           <p>not order added yet</p>
         ) : (
           <p>{orderStatus}</p>
