@@ -31,7 +31,7 @@ function App() {
 
   const addItem = async () => {
     try {
-      await db.collection("todos").add({
+      await db.collection("orders").add({
         bussisnessId: "4ntCBmHQwgHP4zB8x", //ID del negocio si aplica
         busisnessName: "TicTeams", //Nombre del negocio
         busisnesslogo: "logo", //URL del logo del negocio
