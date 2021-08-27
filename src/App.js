@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { firebase, db } from "./database";
+import { db } from "./database";
 import "firebase/firestore";
 
 function App() {
@@ -8,22 +8,27 @@ function App() {
   const [orderStatus, setOrderStatus] = useState("not order added yet");
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
-  const [status, setStatus] = useState(null);
-  const [state, setState] = useState({ latitude: "", longitude: "" });
+  const [locationStatus, setLocationStatus] = useState(null);
+  const [checked, setChecked] = useState(false);
+  const [state, setState] = useState({
+    latitude: "",
+    longitude: "",
+    status: false,
+  });
 
   const getLocation = () => {
     if (!navigator.geolocation) {
-      setStatus("Geolocation is not supported by your browser");
+      setLocationStatus("Geolocation is not supported by your browser");
     } else {
-      setStatus("Locating...");
+      setLocationStatus("Locating...");
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setStatus(null);
+          setLocationStatus(null);
           setLat(position.coords.latitude);
           setLng(position.coords.longitude);
         },
         () => {
-          setStatus("Unable to retrieve your location");
+          setLocationStatus("Unable to retrieve your location");
         }
       );
     }
@@ -37,6 +42,7 @@ function App() {
         busisnesslogo: "logo", //URL del logo del negocio
         deliveryId: "", // al registrar un nuevo pedido no tiene delivery
         status: "PORCONFIRMAR",
+        isAssigned: checked,
         orderdetails: [
           {
             amount: 2, // double
@@ -81,6 +87,7 @@ function App() {
     setState({
       latitude: state.latitude,
       longitude: long.target.value,
+      status: false,
     });
   };
 
@@ -88,13 +95,13 @@ function App() {
     // setState({ latitude: state.latitude, longitude: state.long });
     event.preventDefault();
   };
-  console.log(state);
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>Coordinates</h1>
-        {status ? (
-          <p>{status}</p>
+        {locationStatus ? (
+          <p>{locationStatus}</p>
         ) : (
           <div>
             {lat && <p>Latitude: {lat}</p>}
@@ -115,6 +122,14 @@ function App() {
                     type="text"
                     value={state.longitude}
                     onChange={(long) => handleLongitude(long)}
+                  />
+                </label>
+                <label>
+                  new orderStatus:
+                  <input
+                    type="checkbox"
+                    checked={checked}
+                    onChange={() => setChecked(!checked)}
                   />
                 </label>
                 {/* <input type="submit" value="update values" /> */}
